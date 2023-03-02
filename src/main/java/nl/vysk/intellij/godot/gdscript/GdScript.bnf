@@ -1,0 +1,125 @@
+{
+    parserClass="nl.vysk.intellij.godot.gdscript.parser.GdScriptParser"
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+    psiClassPrefix="GdScript"
+    psiImplClassSuffix="Impl"
+    psiPackage="nl.vysk.intellij.godot.gdscript.psi"
+    psiImplPackage="nl.vysk.intellij.godot.gdscript.psi.impl"
+    elementTypeHolderClass="nl.vysk.intellij.godot.gdscript.GdScriptType"
+    elementTypeClass="nl.vysk.intellij.godot.gdscript.GdScriptElementType"
+    tokenTypeClass="nl.vysk.intellij.godot.gdscript.GdScriptTokenType"
+    psiImplUtilClass="nl.vysk.intellij.godot.gdscript.psi.impl.GdScriptPsiImplUtil"
+
+    tokens=[
+        TRUE="true"
+        FALSE="false"
+        NULL="null"
+        IF="if"
+        VAR="var"
+        CLASS="class"
+        CLASS_NAME="class_name"
+        EXTENDS="extends"
+        FUNC="func"
+        RETURN="return"
+        PASS="pass"
+        VOID="void"
+        FLOAT="float"
+        INT="int"
+
+        DOT="."
+        COMMA=","
+        COLON=":"
+        SEMICOLON=";"
+        ARROW="->"
+
+        PAREN_L="("
+        PAREN_R=")"
+        CURLY_L="{"
+        CURLY_R="}"
+
+        ASSIGN_EQ="="
+        ASSIGN_INFER=":="
+        ASSIGN_PLUS="+="
+        ASSIGN_MIN="-="
+        ASSIGN_MUL="*="
+        ASSIGN_DIV="/="
+
+        OP_PLUS="+"
+        OP_MIN="-"
+        OP_MUL="*"
+        OP_DIV="/"
+        OP_NEG="!"
+        OP_LT="<"
+        OP_GT=">"
+        OP_LT_EQ="<="
+        OP_GT_EQ=">="
+        OP_CMP="=="
+
+        EOL="regexp:\n" // PSI normalizes all line endings to \n
+        INDENT="regexp:\t*"
+        SPACE="regexp:\s+"
+        COMMENT="regexp:#.*\n"
+        NUMBER="regexp:\d+(\.\d*)?"
+        STRING="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
+//        SINGLE_QUOTED_STRING="regexp:'([^'\\]|\\.)*'"
+//        DOUBLE_QUOTED_STRING='regexp:"([^"\\]|\\.)*"'
+        IDENTIFIER="regexp:[\p{Alpha}_][\p{Alnum}_]*" // Maybe? 'regexp:\w+'
+    ]
+}
+
+root ::= statement*
+
+private statement ::= (scoped_statement COMMENT? EOL?) // Scoped statements MAY have EOL
+    | (unscoped_statement COMMENT? (SEMICOLON | EOL | <<eof>>)*) // Unscoped statements MUST have EOL or ;
+    | COMMENT
+    | EOL
+
+private scoped_statement ::= if_statement
+    | class_statement
+
+private unscoped_statement ::= var_statement
+    | func_statement
+    | expression_statement
+    | extends_statement
+    | class_name_statement
+    | return_statement
+    | PASS
+
+var_statement ::= VAR identifier identifier_type? ASSIGN_EQ (identifier | literal)
+
+func_statement ::= FUNC identifier PAREN_L (func_def_arg COMMA)* func_def_arg? PAREN_R (ARROW type)? COLON
+
+private func_def_arg ::= identifier identifier_type?
+
+extends_statement ::= EXTENDS class_identifier
+
+class_name_statement ::= CLASS_NAME class_identifier
+
+class_statement ::= CLASS class_identifier COLON
+
+if_statement ::= IF condition COLON
+
+return_statement ::= RETURN expression?
+
+condition ::= OP_NEG? (literal | identifier) (comparison_operator (literal | identifier))*
+
+expression_statement ::= expression
+
+expression ::= (operand | operator)+
+
+private operand ::= call_expression
+    | identifier
+    | literal
+
+private operator ::= arithmetic_operator | comparison_operator
+
+call_expression ::= identifier PAREN_L expression? (COMMA expression)* PAREN_R
+
+identifier_type ::= COLON type
+
+type ::= class_identifier | VOID | FLOAT | INT
+class_identifier ::= IDENTIFIER (DOT IDENTIFIER)*
+identifier ::= IDENTIFIER
+literal ::= NUMBER | STRING | TRUE | FALSE | NULL
+arithmetic_operator ::= OP_PLUS | OP_MIN | OP_MUL | OP_DIV
+comparison_operator ::= OP_LT | OP_GT | OP_LT_EQ | OP_GT_EQ | OP_CMP
