@@ -1,6 +1,5 @@
 {
     parserClass="nl.vysk.intellij.godot.gdscript.parser.GdScriptParser"
-//    parserUtilClass="nl.vysk.intellij.godot.gdscript.parser.GdScriptParserUtil"
     extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
     psiClassPrefix="GdScript"
     psiImplClassSuffix="Impl"
