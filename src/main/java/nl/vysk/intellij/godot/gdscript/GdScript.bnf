@@ -1,5 +1,6 @@
 {
     parserClass="nl.vysk.intellij.godot.gdscript.parser.GdScriptParser"
+//    parserUtilClass="nl.vysk.intellij.godot.gdscript.parser.GdScriptParserUtil"
     extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
     psiClassPrefix="GdScript"
     psiImplClassSuffix="Impl"
@@ -8,12 +9,12 @@
     elementTypeHolderClass="nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes"
     elementTypeClass="nl.vysk.intellij.godot.gdscript.psi.GdScriptElementType"
     tokenTypeClass="nl.vysk.intellij.godot.gdscript.psi.GdScriptTokenType"
-//    psiImplUtilClass="nl.vysk.intellij.godot.gdscript.psi.impl.GdScriptPsiImplUtil"
 
     tokens=[
+        NULL="null"
+        VOID="void"
         TRUE="true"
         FALSE="false"
-        NULL="null"
         IF="if"
         VAR="var"
         CLASS="class"
@@ -22,7 +23,6 @@
         FUNC="func"
         RETURN="return"
         PASS="pass"
-        VOID="void"
 
         FLOAT="float"
         INT="int"
@@ -55,24 +55,25 @@
         OP_GT_EQ=">="
         OP_CMP="=="
 
-        WHITE_SPACE="regexp:(\s+|\n)"
-        EOL="regexp:\n" // PSI normalizes all line endings to \n
+//        WHITE_SPACE="regexp:(\s+|\n)"
 //        INDENT="regexp:\t*"
+        WHITE_SPACE="regexp:\s+"
+//        LINE_END="regexp:\n" // PSI normalizes all line endings to \n
         COMMENT="regexp:#.*\n"
         NUMBER="regexp:\d+(\.\d*)?"
         STRING="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
 //        SINGLE_QUOTED_STRING="regexp:'([^'\\]|\\.)*'"
 //        DOUBLE_QUOTED_STRING='regexp:"([^"\\]|\\.)*"'
-        IDENTIFIER="regexp:[\p{Alpha}_][\p{Alnum}_]*" // Maybe? 'regexp:\w+'
+//        IDENTIFIER="regexp:[\p{Alpha}_][\p{Alnum}_]*" // Maybe? 'regexp:\w+'
+        IDENTIFIER="regexp:[a-zA-Z_][a-zA-Z0-9_]*" // Maybe? 'regexp:\w+'
     ]
 }
 
 root ::= statement*
 
-private statement ::= (scoped_statement COMMENT? EOL?) // Scoped statements MAY have EOL
-    | (unscoped_statement COMMENT? (SEMICOLON | EOL | <<eof>>)*) // Unscoped statements MUST have EOL or ;
+private statement ::= (scoped_statement COMMENT?) // Scoped statements MAY have LINE_END
+    | (unscoped_statement COMMENT? (SEMICOLON)*) // Unscoped statements MUST have LINE_END or SEMICOLON
     | COMMENT
-    | EOL
 
 private scoped_statement ::= if_statement
     | class_statement
