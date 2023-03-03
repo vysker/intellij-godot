@@ -21,7 +21,11 @@
                 language="GDScript" extensions="gd"/>
         <lang.parserDefinition
                 language="GDScript"
-                implementationClass="nl.vysk.intellij.godot.gdscript.GdScriptParserDefinition"
-        />
+                implementationClass="nl.vysk.intellij.godot.gdscript.GdScriptParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="GDScript"
+                implementationClass="nl.vysk.intellij.godot.gdscript.GdScriptHighlighterFactory"/>
+        <colorSettingsPage
+                implementation="nl.vysk.intellij.godot.gdscript.GdScriptColorSettingsPage"/>
     </extensions>
 </idea-plugin>
