@@ -14,8 +14,14 @@
 
     <!-- Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <fileType name="GDScript File" implementationClass="nl.vysk.intellij.godot.gdscript.GdScriptFileType"
-                  fieldName="INSTANCE"
-                  language="GDScript" extensions="gd"/>
+        <fileType
+                name="GDScript File"
+                implementationClass="nl.vysk.intellij.godot.gdscript.GdScriptFileType"
+                fieldName="INSTANCE"
+                language="GDScript" extensions="gd"/>
+        <lang.parserDefinition
+                language="GDScript"
+                implementationClass="nl.vysk.intellij.godot.gdscript.GdScriptParserDefinition"
+        />
     </extensions>
 </idea-plugin>

@@ -5,10 +5,10 @@
     psiImplClassSuffix="Impl"
     psiPackage="nl.vysk.intellij.godot.gdscript.psi"
     psiImplPackage="nl.vysk.intellij.godot.gdscript.psi.impl"
-    elementTypeHolderClass="nl.vysk.intellij.godot.gdscript.GdScriptType"
-    elementTypeClass="nl.vysk.intellij.godot.gdscript.GdScriptElementType"
-    tokenTypeClass="nl.vysk.intellij.godot.gdscript.GdScriptTokenType"
-    psiImplUtilClass="nl.vysk.intellij.godot.gdscript.psi.impl.GdScriptPsiImplUtil"
+    elementTypeHolderClass="nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes"
+    elementTypeClass="nl.vysk.intellij.godot.gdscript.psi.GdScriptElementType"
+    tokenTypeClass="nl.vysk.intellij.godot.gdscript.psi.GdScriptTokenType"
+//    psiImplUtilClass="nl.vysk.intellij.godot.gdscript.psi.impl.GdScriptPsiImplUtil"
 
     tokens=[
         TRUE="true"
@@ -23,6 +23,7 @@
         RETURN="return"
         PASS="pass"
         VOID="void"
+
         FLOAT="float"
         INT="int"
 
@@ -31,7 +32,6 @@
         COLON=":"
         SEMICOLON=";"
         ARROW="->"
-
         PAREN_L="("
         PAREN_R=")"
         CURLY_L="{"
@@ -55,9 +55,9 @@
         OP_GT_EQ=">="
         OP_CMP="=="
 
+        WHITE_SPACE="regexp:(\s+|\n)"
         EOL="regexp:\n" // PSI normalizes all line endings to \n
-        INDENT="regexp:\t*"
-        SPACE="regexp:\s+"
+//        INDENT="regexp:\t*"
         COMMENT="regexp:#.*\n"
         NUMBER="regexp:\d+(\.\d*)?"
         STRING="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
@@ -85,11 +85,11 @@ private unscoped_statement ::= var_statement
     | return_statement
     | PASS
 
-var_statement ::= VAR identifier identifier_type? ASSIGN_EQ (identifier | literal)
+var_statement ::= VAR IDENTIFIER identifier_type? ASSIGN_EQ (IDENTIFIER | literal)
 
-func_statement ::= FUNC identifier PAREN_L (func_def_arg COMMA)* func_def_arg? PAREN_R (ARROW type)? COLON
+func_statement ::= FUNC IDENTIFIER PAREN_L (func_def_arg COMMA)* func_def_arg? PAREN_R (ARROW type)? COLON
 
-private func_def_arg ::= identifier identifier_type?
+private func_def_arg ::= IDENTIFIER identifier_type?
 
 extends_statement ::= EXTENDS class_identifier
 
@@ -101,25 +101,24 @@ if_statement ::= IF condition COLON
 
 return_statement ::= RETURN expression?
 
-condition ::= OP_NEG? (literal | identifier) (comparison_operator (literal | identifier))*
+condition ::= OP_NEG? (literal | IDENTIFIER) (comparison_operator (literal | IDENTIFIER))*
 
 expression_statement ::= expression
 
 expression ::= (operand | operator)+
 
 private operand ::= call_expression
-    | identifier
+    | IDENTIFIER
     | literal
 
 private operator ::= arithmetic_operator | comparison_operator
 
-call_expression ::= identifier PAREN_L expression? (COMMA expression)* PAREN_R
+call_expression ::= IDENTIFIER PAREN_L expression? (COMMA expression)* PAREN_R
 
 identifier_type ::= COLON type
 
 type ::= class_identifier | VOID | FLOAT | INT
 class_identifier ::= IDENTIFIER (DOT IDENTIFIER)*
-identifier ::= IDENTIFIER
 literal ::= NUMBER | STRING | TRUE | FALSE | NULL
 arithmetic_operator ::= OP_PLUS | OP_MIN | OP_MUL | OP_DIV
 comparison_operator ::= OP_LT | OP_GT | OP_LT_EQ | OP_GT_EQ | OP_CMP

@@ -6,6 +6,8 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 
 public class GdScriptFileType extends LanguageFileType {
+    public static final GdScriptFileType INSTANCE = new GdScriptFileType();
+
     protected GdScriptFileType() {
         super(GdScriptLanguage.INSTANCE);
     }

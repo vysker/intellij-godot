@@ -1,6 +1,7 @@
-package nl.vysk.intellij.godot.gdscript;
+package nl.vysk.intellij.godot.gdscript.psi;
 
 import com.intellij.psi.tree.IElementType;
+import nl.vysk.intellij.godot.gdscript.GdScriptLanguage;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
