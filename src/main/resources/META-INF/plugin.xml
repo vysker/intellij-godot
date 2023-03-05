@@ -35,5 +35,7 @@
                 implementationClass="nl.vysk.intellij.godot.gdscript.GdScriptFindUsagesProvider"/>
         <gotoSymbolContributor
                 implementation="nl.vysk.intellij.godot.gdscript.GdScriptChooseByNameContributor"/>
+        <renamePsiElementProcessor
+                implementation="nl.vysk.intellij.godot.gdscript.GdScriptRenameIdentifierProcessor"/>
     </extensions>
 </idea-plugin>
