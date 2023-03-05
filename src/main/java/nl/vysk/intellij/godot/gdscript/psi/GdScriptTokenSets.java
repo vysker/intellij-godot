@@ -3,19 +3,22 @@ package nl.vysk.intellij.godot.gdscript.psi;
 import com.intellij.psi.tree.TokenSet;
 
 public class GdScriptTokenSets {
-    public static final TokenSet IDENTIFIERS = TokenSet.create(GdScriptElementTypes.IDENTIFIER);
+    public static final TokenSet IDENTIFIERS = TokenSet.create(GdScriptElementTypes.IDENTIFIER, GdScriptElementTypes.REF_NAME);
     public static final TokenSet COMMENTS = TokenSet.create(GdScriptElementTypes.COMMENT);
+    public static final TokenSet LITERALS = TokenSet.create(GdScriptElementTypes.LITERAL);
     public static final TokenSet STRINGS = TokenSet.create(GdScriptElementTypes.STRING);
     public static final TokenSet KEYWORDS = TokenSet.create(
             GdScriptElementTypes.VOID,
             GdScriptElementTypes.NULL,
             GdScriptElementTypes.TRUE,
             GdScriptElementTypes.FALSE,
+            GdScriptElementTypes.EXTENDS,
             GdScriptElementTypes.CLASS_NAME,
             GdScriptElementTypes.CLASS,
-            GdScriptElementTypes.EXTENDS,
+            GdScriptElementTypes.IF,
             GdScriptElementTypes.VAR,
             GdScriptElementTypes.FUNC,
+            GdScriptElementTypes.RETURN,
             GdScriptElementTypes.PASS,
             GdScriptElementTypes.FLOAT,
             GdScriptElementTypes.INT

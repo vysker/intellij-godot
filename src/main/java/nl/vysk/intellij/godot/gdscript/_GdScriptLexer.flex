@@ -29,7 +29,7 @@ WHITE_SPACE=[ \t\n\x0B\f\r]+
 COMMENT=#.*\n
 NUMBER=[0-9]+(\.[0-9]*)?
 STRING=('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")
-IDENTIFIER=[a-zA-Z_][a-zA-Z0-9_]*
+REF_NAME=[a-zA-Z_][a-zA-Z0-9_]*
 
 %%
 <YYINITIAL> {
@@ -79,7 +79,7 @@ IDENTIFIER=[a-zA-Z_][a-zA-Z0-9_]*
   {COMMENT}          { return COMMENT; }
   {NUMBER}           { return NUMBER; }
   {STRING}           { return STRING; }
-  {IDENTIFIER}       { return IDENTIFIER; }
+  {REF_NAME}         { return REF_NAME; }
 
 }
 

@@ -5,6 +5,7 @@
     psiImplClassSuffix="Impl"
     psiPackage="nl.vysk.intellij.godot.gdscript.psi"
     psiImplPackage="nl.vysk.intellij.godot.gdscript.psi.impl"
+    psiImplUtilClass="nl.vysk.intellij.godot.gdscript.psi.impl.GdScriptPsiImplUtil"
     elementTypeHolderClass="nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes"
     elementTypeClass="nl.vysk.intellij.godot.gdscript.psi.GdScriptElementType"
     tokenTypeClass="nl.vysk.intellij.godot.gdscript.psi.GdScriptTokenType"
@@ -54,8 +55,6 @@
         OP_GT_EQ=">="
         OP_CMP="=="
 
-//        WHITE_SPACE="regexp:(\s+|\n)"
-//        INDENT="regexp:\t*"
         WHITE_SPACE="regexp:\s+"
 //        LINE_END="regexp:\n" // PSI normalizes all line endings to \n
         COMMENT="regexp:#.*\n"
@@ -63,8 +62,7 @@
         STRING="regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\")"
 //        SINGLE_QUOTED_STRING="regexp:'([^'\\]|\\.)*'"
 //        DOUBLE_QUOTED_STRING='regexp:"([^"\\]|\\.)*"'
-//        IDENTIFIER="regexp:[\p{Alpha}_][\p{Alnum}_]*" // Maybe? 'regexp:\w+'
-        IDENTIFIER="regexp:[a-zA-Z_][a-zA-Z0-9_]*" // Maybe? 'regexp:\w+'
+        REF_NAME="regexp:[a-zA-Z_][a-zA-Z0-9_]*" // Basically any var/func/class name
     ]
 }
 
@@ -85,11 +83,11 @@ private unscoped_statement ::= var_statement
     | return_statement
     | PASS
 
-var_statement ::= VAR IDENTIFIER identifier_type? ASSIGN_EQ (IDENTIFIER | literal)
+var_statement ::= VAR identifier identifier_type? ASSIGN_EQ (identifier | literal)
 
-func_statement ::= FUNC IDENTIFIER PAREN_L (func_def_arg COMMA)* func_def_arg? PAREN_R (ARROW type)? COLON
+func_statement ::= FUNC identifier PAREN_L (func_def_arg COMMA)* func_def_arg? PAREN_R (ARROW type)? COLON
 
-private func_def_arg ::= IDENTIFIER identifier_type?
+private func_def_arg ::= identifier identifier_type?
 
 extends_statement ::= EXTENDS class_identifier
 
@@ -101,24 +99,31 @@ if_statement ::= IF condition COLON
 
 return_statement ::= RETURN expression?
 
-condition ::= OP_NEG? (literal | IDENTIFIER) (comparison_operator (literal | IDENTIFIER))*
+condition ::= OP_NEG? (literal | identifier) (comparison_operator (literal | identifier))*
 
 expression_statement ::= expression
 
 expression ::= (operand | operator)+
 
 private operand ::= call_expression
-    | IDENTIFIER
+    | identifier
     | literal
 
 private operator ::= arithmetic_operator | comparison_operator
 
-call_expression ::= IDENTIFIER PAREN_L expression? (COMMA expression)* PAREN_R
+call_expression ::= identifier PAREN_L expression? (COMMA expression)* PAREN_R
 
 identifier_type ::= COLON type
 
 type ::= class_identifier | VOID | FLOAT | INT
-class_identifier ::= IDENTIFIER (DOT IDENTIFIER)*
+
+class_identifier ::= identifier (DOT identifier)* {methods=[getOuterClass]}
+
 literal ::= NUMBER | STRING | TRUE | FALSE | NULL
 arithmetic_operator ::= OP_PLUS | OP_MIN | OP_MUL | OP_DIV
 comparison_operator ::= OP_LT | OP_GT | OP_LT_EQ | OP_GT_EQ | OP_CMP
+identifier ::= REF_NAME {
+    mixin="nl.vysk.intellij.godot.gdscript.psi.impl.GdScriptNamedElementImpl"
+    implements="nl.vysk.intellij.godot.gdscript.psi.GdScriptNamedElement"
+    methods=[getName setName getNameIdentifier getPresentation getReference]
+}

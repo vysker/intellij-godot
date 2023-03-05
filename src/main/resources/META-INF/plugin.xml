@@ -27,5 +27,13 @@
                 implementationClass="nl.vysk.intellij.godot.gdscript.GdScriptHighlighterFactory"/>
         <colorSettingsPage
                 implementation="nl.vysk.intellij.godot.gdscript.GdScriptColorSettingsPage"/>
+        <psi.referenceContributor
+                language="GDScript"
+                implementation="nl.vysk.intellij.godot.gdscript.GdScriptReferenceContributor"/>
+        <lang.findUsagesProvider
+                language="GDScript"
+                implementationClass="nl.vysk.intellij.godot.gdscript.GdScriptFindUsagesProvider"/>
+        <gotoSymbolContributor
+                implementation="nl.vysk.intellij.godot.gdscript.GdScriptChooseByNameContributor"/>
     </extensions>
 </idea-plugin>
