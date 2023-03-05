@@ -10,6 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.vysk.intellij.godot.gdscript.psi.*;
+import com.intellij.psi.PsiReference;
 
 public class GdScriptClassIdentifierImpl extends ASTWrapperPsiElement implements GdScriptClassIdentifier {
 
@@ -25,6 +26,17 @@ public class GdScriptClassIdentifierImpl extends ASTWrapperPsiElement implements
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof GdScriptVisitor) accept((GdScriptVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public List<GdScriptIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, GdScriptIdentifier.class);
+  }
+
+  @Override
+  public PsiReference getOuterClass() {
+    return GdScriptPsiImplUtil.getOuterClass(this);
   }
 
 }

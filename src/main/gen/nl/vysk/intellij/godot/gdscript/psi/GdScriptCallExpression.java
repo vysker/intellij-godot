@@ -11,6 +11,6 @@ public interface GdScriptCallExpression extends PsiElement {
   List<GdScriptExpression> getExpressionList();
 
   @NotNull
-  PsiElement getIdentifier();
+  GdScriptIdentifier getIdentifier();
 
 }

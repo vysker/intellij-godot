@@ -17,6 +17,9 @@ public interface GdScriptExpression extends PsiElement {
   List<GdScriptComparisonOperator> getComparisonOperatorList();
 
   @NotNull
+  List<GdScriptIdentifier> getIdentifierList();
+
+  @NotNull
   List<GdScriptLiteral> getLiteralList();
 
 }

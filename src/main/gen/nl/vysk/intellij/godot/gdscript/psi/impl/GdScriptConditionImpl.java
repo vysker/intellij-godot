@@ -35,6 +35,12 @@ public class GdScriptConditionImpl extends ASTWrapperPsiElement implements GdScr
 
   @Override
   @NotNull
+  public List<GdScriptIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, GdScriptIdentifier.class);
+  }
+
+  @Override
+  @NotNull
   public List<GdScriptLiteral> getLiteralList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, GdScriptLiteral.class);
   }

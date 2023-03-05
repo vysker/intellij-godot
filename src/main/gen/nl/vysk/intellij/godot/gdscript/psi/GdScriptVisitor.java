@@ -51,6 +51,10 @@ public class GdScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitIdentifier(@NotNull GdScriptIdentifier o) {
+    visitNamedElement(o);
+  }
+
   public void visitIdentifierType(@NotNull GdScriptIdentifierType o) {
     visitPsiElement(o);
   }
@@ -72,6 +76,10 @@ public class GdScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitVarStatement(@NotNull GdScriptVarStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedElement(@NotNull GdScriptNamedElement o) {
     visitPsiElement(o);
   }
 

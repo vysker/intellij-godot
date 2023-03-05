@@ -29,6 +29,12 @@ public class GdScriptFuncStatementImpl extends ASTWrapperPsiElement implements G
 
   @Override
   @NotNull
+  public List<GdScriptIdentifier> getIdentifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, GdScriptIdentifier.class);
+  }
+
+  @Override
+  @NotNull
   public List<GdScriptIdentifierType> getIdentifierTypeList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, GdScriptIdentifierType.class);
   }

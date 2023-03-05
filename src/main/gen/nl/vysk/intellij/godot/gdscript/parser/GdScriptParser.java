@@ -1,78 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package nl.vysk.intellij.godot.gdscript.parser;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.LightPsiParser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
-import com.intellij.lang.PsiParser;
+import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.*;
+import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
 import com.intellij.psi.tree.IElementType;
-
-import static com.intellij.lang.parser.GeneratedParserUtilBase.TRUE_CONDITION;
-import static com.intellij.lang.parser.GeneratedParserUtilBase._COLLAPSE_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase._NONE_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.adapt_builder_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.consumeToken;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.consumeTokens;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.current_position_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.empty_element_parsed_guard_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.enter_section_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.exit_section_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.nextTokenIs;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.recursion_guard_;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.ARITHMETIC_OPERATOR;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.ARROW;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.ASSIGN_EQ;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.CALL_EXPRESSION;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.CLASS;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.CLASS_IDENTIFIER;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.CLASS_NAME;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.CLASS_NAME_STATEMENT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.CLASS_STATEMENT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.COLON;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.COMMA;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.COMMENT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.COMPARISON_OPERATOR;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.CONDITION;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.DOT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.EXPRESSION;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.EXPRESSION_STATEMENT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.EXTENDS;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.EXTENDS_STATEMENT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.FALSE;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.FLOAT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.FUNC;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.FUNC_STATEMENT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.IDENTIFIER;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.IDENTIFIER_TYPE;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.IF;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.IF_STATEMENT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.INT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.LITERAL;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.NULL;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.NUMBER;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.OP_CMP;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.OP_DIV;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.OP_GT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.OP_GT_EQ;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.OP_LT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.OP_LT_EQ;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.OP_MIN;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.OP_MUL;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.OP_NEG;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.OP_PLUS;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.PAREN_L;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.PAREN_R;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.PASS;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.RETURN;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.RETURN_STATEMENT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.SEMICOLON;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.STRING;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.TRUE;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.TYPE;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.VAR;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.VAR_STATEMENT;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.VOID;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.tree.TokenSet;
+import com.intellij.lang.PsiParser;
+import com.intellij.lang.LightPsiParser;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class GdScriptParser implements PsiParser, LightPsiParser {
@@ -113,13 +50,14 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER PAREN_L expression? (COMMA expression)* PAREN_R
+  // identifier PAREN_L expression? (COMMA expression)* PAREN_R
   public static boolean call_expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "call_expression")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    if (!nextTokenIs(b, REF_NAME)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, IDENTIFIER, PAREN_L);
+    r = identifier(b, l + 1);
+    r = r && consumeToken(b, PAREN_L);
     r = r && call_expression_2(b, l + 1);
     r = r && call_expression_3(b, l + 1);
     r = r && consumeToken(b, PAREN_R);
@@ -157,19 +95,19 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER (DOT IDENTIFIER)*
+  // identifier (DOT identifier)*
   public static boolean class_identifier(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "class_identifier")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    if (!nextTokenIs(b, REF_NAME)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
+    r = identifier(b, l + 1);
     r = r && class_identifier_1(b, l + 1);
     exit_section_(b, m, CLASS_IDENTIFIER, r);
     return r;
   }
 
-  // (DOT IDENTIFIER)*
+  // (DOT identifier)*
   private static boolean class_identifier_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "class_identifier_1")) return false;
     while (true) {
@@ -180,12 +118,13 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // DOT IDENTIFIER
+  // DOT identifier
   private static boolean class_identifier_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "class_identifier_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, DOT, IDENTIFIER);
+    r = consumeToken(b, DOT);
+    r = r && identifier(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -233,7 +172,7 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // OP_NEG? (literal | IDENTIFIER) (comparison_operator (literal | IDENTIFIER))*
+  // OP_NEG? (literal | identifier) (comparison_operator (literal | identifier))*
   public static boolean condition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "condition")) return false;
     boolean r;
@@ -252,16 +191,16 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // literal | IDENTIFIER
+  // literal | identifier
   private static boolean condition_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "condition_1")) return false;
     boolean r;
     r = literal(b, l + 1);
-    if (!r) r = consumeToken(b, IDENTIFIER);
+    if (!r) r = identifier(b, l + 1);
     return r;
   }
 
-  // (comparison_operator (literal | IDENTIFIER))*
+  // (comparison_operator (literal | identifier))*
   private static boolean condition_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "condition_2")) return false;
     while (true) {
@@ -272,7 +211,7 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // comparison_operator (literal | IDENTIFIER)
+  // comparison_operator (literal | identifier)
   private static boolean condition_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "condition_2_0")) return false;
     boolean r;
@@ -283,12 +222,12 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // literal | IDENTIFIER
+  // literal | identifier
   private static boolean condition_2_0_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "condition_2_0_1")) return false;
     boolean r;
     r = literal(b, l + 1);
-    if (!r) r = consumeToken(b, IDENTIFIER);
+    if (!r) r = identifier(b, l + 1);
     return r;
   }
 
@@ -342,13 +281,13 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER identifier_type?
+  // identifier identifier_type?
   static boolean func_def_arg(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "func_def_arg")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    if (!nextTokenIs(b, REF_NAME)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
+    r = identifier(b, l + 1);
     r = r && func_def_arg_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
@@ -362,13 +301,15 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // FUNC IDENTIFIER PAREN_L (func_def_arg COMMA)* func_def_arg? PAREN_R (ARROW type)? COLON
+  // FUNC identifier PAREN_L (func_def_arg COMMA)* func_def_arg? PAREN_R (ARROW type)? COLON
   public static boolean func_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "func_statement")) return false;
     if (!nextTokenIs(b, FUNC)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, FUNC, IDENTIFIER, PAREN_L);
+    r = consumeToken(b, FUNC);
+    r = r && identifier(b, l + 1);
+    r = r && consumeToken(b, PAREN_L);
     r = r && func_statement_3(b, l + 1);
     r = r && func_statement_4(b, l + 1);
     r = r && consumeToken(b, PAREN_R);
@@ -426,6 +367,18 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // REF_NAME
+  public static boolean identifier(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifier")) return false;
+    if (!nextTokenIs(b, REF_NAME)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, REF_NAME);
+    exit_section_(b, m, IDENTIFIER, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // COLON type
   public static boolean identifier_type(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "identifier_type")) return false;
@@ -469,13 +422,13 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // call_expression
-  //     | IDENTIFIER
+  //     | identifier
   //     | literal
   static boolean operand(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "operand")) return false;
     boolean r;
     r = call_expression(b, l + 1);
-    if (!r) r = consumeToken(b, IDENTIFIER);
+    if (!r) r = identifier(b, l + 1);
     if (!r) r = literal(b, l + 1);
     return r;
   }
@@ -633,13 +586,14 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // VAR IDENTIFIER identifier_type? ASSIGN_EQ (IDENTIFIER | literal)
+  // VAR identifier identifier_type? ASSIGN_EQ (identifier | literal)
   public static boolean var_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "var_statement")) return false;
     if (!nextTokenIs(b, VAR)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, VAR, IDENTIFIER);
+    r = consumeToken(b, VAR);
+    r = r && identifier(b, l + 1);
     r = r && var_statement_2(b, l + 1);
     r = r && consumeToken(b, ASSIGN_EQ);
     r = r && var_statement_4(b, l + 1);
@@ -654,11 +608,11 @@ public class GdScriptParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // IDENTIFIER | literal
+  // identifier | literal
   private static boolean var_statement_4(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "var_statement_4")) return false;
     boolean r;
-    r = consumeToken(b, IDENTIFIER);
+    r = identifier(b, l + 1);
     if (!r) r = literal(b, l + 1);
     return r;
   }

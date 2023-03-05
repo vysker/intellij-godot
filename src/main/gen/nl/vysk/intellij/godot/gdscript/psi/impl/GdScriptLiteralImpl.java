@@ -1,17 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package nl.vysk.intellij.godot.gdscript.psi.impl;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import nl.vysk.intellij.godot.gdscript.psi.GdScriptLiteral;
-import nl.vysk.intellij.godot.gdscript.psi.GdScriptVisitor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.NUMBER;
-import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.STRING;
+import com.intellij.psi.util.PsiTreeUtil;
+import static nl.vysk.intellij.godot.gdscript.psi.GdScriptElementTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import nl.vysk.intellij.godot.gdscript.psi.*;
 
 public class GdScriptLiteralImpl extends ASTWrapperPsiElement implements GdScriptLiteral {
 

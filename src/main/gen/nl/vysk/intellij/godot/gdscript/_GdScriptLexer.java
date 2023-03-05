@@ -551,7 +551,7 @@ public class _GdScriptLexer implements FlexLexer {
             // fall through
           case 49: break;
           case 5: 
-            { return IDENTIFIER;
+            { return REF_NAME;
             } 
             // fall through
           case 50: break;

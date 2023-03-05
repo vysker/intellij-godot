@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface GdScriptFuncStatement extends PsiElement {
 
   @NotNull
+  List<GdScriptIdentifier> getIdentifierList();
+
+  @NotNull
   List<GdScriptIdentifierType> getIdentifierTypeList();
 
   @Nullable

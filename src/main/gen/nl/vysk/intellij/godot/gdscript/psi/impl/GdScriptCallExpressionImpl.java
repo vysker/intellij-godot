@@ -35,8 +35,8 @@ public class GdScriptCallExpressionImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public GdScriptIdentifier getIdentifier() {
+    return findNotNullChildByClass(GdScriptIdentifier.class);
   }
 
 }

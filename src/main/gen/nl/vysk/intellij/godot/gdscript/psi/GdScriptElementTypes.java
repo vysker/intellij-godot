@@ -19,6 +19,7 @@ public interface GdScriptElementTypes {
   IElementType EXPRESSION_STATEMENT = new GdScriptElementType("EXPRESSION_STATEMENT");
   IElementType EXTENDS_STATEMENT = new GdScriptElementType("EXTENDS_STATEMENT");
   IElementType FUNC_STATEMENT = new GdScriptElementType("FUNC_STATEMENT");
+  IElementType IDENTIFIER = new GdScriptElementType("IDENTIFIER");
   IElementType IDENTIFIER_TYPE = new GdScriptElementType("IDENTIFIER_TYPE");
   IElementType IF_STATEMENT = new GdScriptElementType("IF_STATEMENT");
   IElementType LITERAL = new GdScriptElementType("LITERAL");
@@ -45,7 +46,6 @@ public interface GdScriptElementTypes {
   IElementType FALSE = new GdScriptTokenType("false");
   IElementType FLOAT = new GdScriptTokenType("float");
   IElementType FUNC = new GdScriptTokenType("func");
-  IElementType IDENTIFIER = new GdScriptTokenType("IDENTIFIER");
   IElementType IF = new GdScriptTokenType("if");
   IElementType INT = new GdScriptTokenType("int");
   IElementType NULL = new GdScriptTokenType("null");
@@ -63,6 +63,7 @@ public interface GdScriptElementTypes {
   IElementType PAREN_L = new GdScriptTokenType("(");
   IElementType PAREN_R = new GdScriptTokenType(")");
   IElementType PASS = new GdScriptTokenType("pass");
+  IElementType REF_NAME = new GdScriptTokenType("REF_NAME");
   IElementType RETURN = new GdScriptTokenType("return");
   IElementType SEMICOLON = new GdScriptTokenType(";");
   IElementType STRING = new GdScriptTokenType("STRING");
@@ -105,6 +106,9 @@ public interface GdScriptElementTypes {
       }
       else if (type == FUNC_STATEMENT) {
         return new GdScriptFuncStatementImpl(node);
+      }
+      else if (type == IDENTIFIER) {
+        return new GdScriptIdentifierImpl(node);
       }
       else if (type == IDENTIFIER_TYPE) {
         return new GdScriptIdentifierTypeImpl(node);
