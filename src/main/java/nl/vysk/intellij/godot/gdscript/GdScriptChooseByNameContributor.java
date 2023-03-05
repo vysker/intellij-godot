@@ -9,6 +9,7 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.indexing.FindSymbolParameters;
 import com.intellij.util.indexing.IdFilter;
 import nl.vysk.intellij.godot.gdscript.psi.GdScriptIdentifier;
+import nl.vysk.intellij.godot.gdscript.util.GdScriptUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

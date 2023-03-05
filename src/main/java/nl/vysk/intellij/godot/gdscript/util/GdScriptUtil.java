@@ -1,10 +1,11 @@
-package nl.vysk.intellij.godot.gdscript;
+package nl.vysk.intellij.godot.gdscript.util;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
+import nl.vysk.intellij.godot.gdscript.GdScriptFileType;
 import nl.vysk.intellij.godot.gdscript.psi.GdScriptIdentifier;
 
 import java.util.Collection;

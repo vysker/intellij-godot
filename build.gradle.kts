@@ -1,3 +1,5 @@
+import java.nio.file.Files
+
 plugins {
     id("java")
     id("org.jetbrains.intellij") version "1.13.1"
@@ -41,5 +43,18 @@ tasks {
 
     publishPlugin {
         token.set(System.getenv("PUBLISH_TOKEN"))
+    }
+}
+
+tasks.register("gatherGodotDocs") {
+    val docsDir = file("${project.buildDir}/resources/godot-docs").toPath()
+    doFirst {
+        Files.createDirectories(docsDir)
+    }
+    doLast {
+        exec {
+            // https://docs.godotengine.org/en/latest/tutorials/editor/command_line_tutorial.html
+            commandLine("godot", "--doctool", docsDir)
+        }
     }
 }
