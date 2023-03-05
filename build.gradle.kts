@@ -23,6 +23,8 @@ intellij {
 
 sourceSets["main"].java.srcDirs("src/main/gen")
 
+val buildResourcesDir = "${project.buildDir}/resources"
+
 tasks {
     // Set the JVM compatibility versions
     withType<JavaCompile> {
@@ -44,10 +46,18 @@ tasks {
     publishPlugin {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
+
+    buildPlugin {
+        dependsOn("gatherGodotDocs")
+    }
+
+    runIde {
+        environment("RESOURCES_DIR", buildResourcesDir)
+    }
 }
 
 tasks.register("gatherGodotDocs") {
-    val docsDir = file("${project.buildDir}/resources/godot-docs").toPath()
+    val docsDir = file("$buildResourcesDir/godot-docs").toPath()
     doFirst {
         Files.createDirectories(docsDir)
     }

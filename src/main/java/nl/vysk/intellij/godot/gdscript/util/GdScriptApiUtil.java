@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 public class GdScriptApiUtil {
     private static final String BUILT_IN_CLASSES_DIR = "/godot-docs/doc/classes";
-
     private static final List<String> BUILT_IN_CLASSES = loadBuiltInClasses();
 
     /**
@@ -27,10 +26,10 @@ public class GdScriptApiUtil {
     }
 
     private static List<String> loadBuiltInClasses() {
-        final URI resource = getBuiltInClassesUri();
-        Objects.requireNonNull(resource);
-        Objects.requireNonNull(resource.getPath());
-        final File[] files = new File(resource.getPath()).listFiles();
+        final URI builtInClassDir = getResourceUri(BUILT_IN_CLASSES_DIR);
+        Objects.requireNonNull(builtInClassDir);
+        Objects.requireNonNull(builtInClassDir.getPath());
+        final File[] files = new File(builtInClassDir.getPath()).listFiles();
         Objects.requireNonNull(files);
         return Arrays.stream(files)
                 .map(File::getName)
@@ -39,17 +38,19 @@ public class GdScriptApiUtil {
     }
 
     @NotNull
-    private static URI getBuiltInClassesUri() {
-        if (System.getenv("PROJECT_DIR") != null) {
+    private static URI getResourceUri(String resourcePath) {
+        if (System.getenv("RESOURCES_DIR") != null) {
             // When running the plugin in debug mode, it is not in a jar, so we cannot load resources as such
-            return Paths.get(System.getenv("PROJECT_DIR"), "build/resources", BUILT_IN_CLASSES_DIR).toUri();
+            return Paths.get(System.getenv("RESOURCES_DIR"), resourcePath).toUri();
         }
 
         try {
-            final URL resource = Objects.requireNonNull(GdScriptApiUtil.class.getResource(BUILT_IN_CLASSES_DIR));
+            final URL resource = Objects.requireNonNull(
+                    GdScriptApiUtil.class.getResource(resourcePath),
+                    String.format("Failed to find resource at path '%s'", resourcePath));
             return resource.toURI();
         } catch (URISyntaxException e) {
-            throw new RuntimeException(String.format("Godot docs are missing from path '%s'", BUILT_IN_CLASSES_DIR));
+            throw new RuntimeException(String.format("Failed to find resource at path '%s'", resourcePath));
         }
     }
 }
