@@ -9,8 +9,6 @@ import java.util.Optional;
 public class GdScriptElementFactory {
 
     public static GdScriptIdentifier createIdentifier(Project project, String name) {
-        PsiFileFactory.getInstance(project).createFileFromText("bla.gd", GdScriptFileType.INSTANCE, "");
-
         final GdScriptFile file = createFile(project, name);
         return Optional.ofNullable(file.findChildByClass(GdScriptExpressionStatement.class))
                 .map(GdScriptExpressionStatement::getExpression)
