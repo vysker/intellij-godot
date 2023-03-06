@@ -36,7 +36,7 @@ public class GdScriptRenameIdentifierProcessor extends RenamePsiElementProcessor
                                @NotNull List<UsageInfo> result) {
         allRenames.forEach((renamedElement, value) -> {
             final String oldName = ((GdScriptIdentifier) element).getName();
-            if (GdScriptApiUtil.getBuiltInClasses().contains(oldName)) {
+            if (GdScriptApiUtil.getGodotBuiltinClassNames().contains(oldName)) {
                 result.add(createCollisionUsageInfo(renamedElement, oldName));
             }
         });

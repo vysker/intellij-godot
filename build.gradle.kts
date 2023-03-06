@@ -21,6 +21,10 @@ intellij {
     plugins.set(listOf(/* Plugin Dependencies */))
 }
 
+dependencies {
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
+}
+
 sourceSets["main"].java.srcDirs("src/main/gen")
 
 val buildResourcesDir = "${project.buildDir}/resources"
@@ -63,8 +67,9 @@ tasks.register("gatherGodotDocs") {
     }
     doLast {
         exec {
+            workingDir(docsDir)
             // https://docs.godotengine.org/en/latest/tutorials/editor/command_line_tutorial.html
-            commandLine("godot", "--doctool", docsDir)
+            commandLine("godot", "--dump-extension-api")
         }
     }
 }
